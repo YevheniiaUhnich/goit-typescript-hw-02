@@ -1,5 +1,29 @@
 import Modal from "react-modal";
-const styles = {
+import React from "react";
+
+export interface ImageData {
+  id?: string | number;
+  urls: {
+    small: string;
+  };
+  alt_description?: string;
+}
+
+export interface ImageData {
+  id?: string | number;
+  urls: {
+    small: string;
+  };
+  alt_description?: string;
+}
+
+interface ImageModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+  selectedImage: ImageData | null;
+}
+
+const styles: Modal.Styles = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.75)",
     zIndex: 1000,
@@ -9,9 +33,9 @@ const styles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
-    maxWidth: "90wv",
+    maxWidth: "90vw",
     width: "auto",
-    maxHeight: "90hv",
+    maxHeight: "90vh",
     transform: "translate(-50%, -50%)",
     padding: "20px",
     borderRadius: "12px",
@@ -19,9 +43,14 @@ const styles = {
     boxShadow: "0 5px 10px rgba(0, 0, 0, 0.2)",
   },
 };
+
 Modal.setAppElement("#root");
 
-const ImageModal = ({ isOpen, onRequestClose, selectedImage }) => {
+const ImageModal: React.FC<ImageModalProps> = ({
+  isOpen,
+  onRequestClose,
+  selectedImage,
+}) => {
   return (
     <Modal style={styles} isOpen={isOpen} onRequestClose={onRequestClose}>
       {selectedImage && (
@@ -34,4 +63,5 @@ const ImageModal = ({ isOpen, onRequestClose, selectedImage }) => {
     </Modal>
   );
 };
+
 export default ImageModal;
