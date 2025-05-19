@@ -1,16 +1,10 @@
 import s from "./ImageCard.module.css";
 import React from "react";
-
-interface ImageData {
-  urls: {
-    small: string;
-  };
-  alt_description?: string;
-}
+import { ImageData } from "../../types/ImageData";
 
 interface ImageCardProps {
-  sendImg: any;
-  handleClick: (img: any) => void;
+  sendImg: ImageData;
+  handleClick: (img: ImageData) => void;
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({ handleClick, sendImg }) => {

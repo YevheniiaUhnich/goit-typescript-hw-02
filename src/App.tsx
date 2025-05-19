@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import React from "react";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
@@ -7,29 +8,31 @@ import Loader from "./components/Loader/Loader";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import SearchBar from "./components/SearchBar/SearchBar";
 import { fetchGalleryWithPhoto } from "./Gallery-api";
+import { ImageData } from "./types/ImageData";
 
-function App() {
-  const [gallery, setGallery] = useState([]);
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+const App: React.FC = () => {
+  const [gallery, setGallery] = useState<ImageData[]>([]);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<ImageData | null>(null);
 
-  function openModal() {
+  function openModal(): void {
     setIsOpen(true);
   }
-  function closeModal() {
+  function closeModal(): void {
     setIsOpen(false);
   }
-  const handleClick = (query) => {
-    setSelectedImage(query);
+
+  const handleClick = (img: ImageData): void => {
+    setSelectedImage(img);
     openModal();
   };
 
-  const handleSearch = (newQuery) => {
+  const handleSearch = (newQuery: string): void => {
     setQuery(newQuery);
     setGallery([]);
     setPage(1);
@@ -40,7 +43,7 @@ function App() {
 
     const abortController = new AbortController();
 
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       try {
         setLoading(true);
         setErrorMessage(false);
@@ -86,6 +89,6 @@ function App() {
       )}
     </>
   );
-}
+};
 
 export default App;

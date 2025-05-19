@@ -1,14 +1,7 @@
 import React from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import s from "./ImageGallery.module.css";
-
-interface ImageData {
-  id: string | number;
-  urls: {
-    small: string;
-  };
-  alt_description?: string;
-}
+import { ImageData } from "../../types/ImageData";
 
 interface ImageGalleryProps {
   sendImages: ImageData[];
